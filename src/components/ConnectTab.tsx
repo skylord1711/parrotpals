@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { MessageCircle, Server, Copy, Check, Users, Heart, Gamepad2, MessageSquare } from 'lucide-react';
 import { useState } from 'react';
 import { useToast } from './Toast';
+import ModApplicationForm from './ModApplicationForm';
 import type { ConnectSettings } from '../types';
 
 const iconMap: Record<string, React.ElementType> = {
@@ -140,6 +141,8 @@ export default function ConnectTab({ settings }: ConnectTabProps) {
             <span>{settings.supportMessage}</span>
           </div>
         </motion.div>
+
+        <ModApplicationForm />
       </motion.div>
     </AnimatePresence>
   );
