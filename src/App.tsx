@@ -34,6 +34,10 @@ function AppContent() {
     }
   }, []);
   const [socialPlatforms, setSocialPlatforms] = useLocalStorage<SocialPlatform[]>('parrot-social-platforms', defaultPlatforms);
+  useEffect(() => {
+    localStorage.removeItem('parrot-social-platforms');
+    setSocialPlatforms(defaultPlatforms);
+  }, []);
 
   const handleToggleLive = useCallback(() => {
     setIsLive((prev) => !prev);

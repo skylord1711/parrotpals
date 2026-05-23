@@ -9,7 +9,6 @@ export const socialPlatforms: SocialPlatform[] = [
     icon: 'music',
     followerCount: 12500,
     url: 'https://tiktok.com/@captionthism8',
-    isLive: true,
   },
   {
     id: 'discord',
