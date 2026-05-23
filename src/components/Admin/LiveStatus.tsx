@@ -1,12 +1,37 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Radio, Wifi, WifiOff } from 'lucide-react';
+import { Radio, Wifi, WifiOff, RefreshCw } from 'lucide-react';
+import { useToast } from '../Toast';
 
 interface LiveStatusProps {
   isLive: boolean;
   onToggle: () => void;
+  tiktokUsername: string;
 }
 
-export default function LiveStatus({ isLive, onToggle }: LiveStatusProps) {
+export default function LiveStatus({ isLive, onToggle, tiktokUsername }: LiveStatusProps) {
+  const [checking, setChecking] = useState(false);
+  const { showToast } = useToast();
+
+  const handleAutoDetect = async () => {
+    setChecking(true);
+    try {
+      const res = await fetch(`/api/check-tiktok-live?username=${encodeURIComponent(tiktokUsername)}`);
+      const data = await res.json();
+
+      if (data.isLive !== undefined) {
+        if (data.isLive !== isLive) {
+          onToggle();
+        }
+        showToast(data.isLive ? 'TikTok is live!' : 'Not live on TikTok');
+      }
+    } catch {
+      showToast('Failed to check TikTok', 'error');
+    } finally {
+      setChecking(false);
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -43,17 +68,14 @@ export default function LiveStatus({ isLive, onToggle }: LiveStatusProps) {
         </button>
       </div>
 
-      {isLive && (
-        <motion.div
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 'auto', opacity: 1 }}
-          className="p-3 rounded-xl bg-red-500/5 border border-red-500/10"
-        >
-          <p className="text-xs text-red-300">
-            TikTok live detection placeholder — integrate with TikTok API for auto-detection.
-          </p>
-        </motion.div>
-      )}
+      <button
+        onClick={handleAutoDetect}
+        disabled={checking}
+        className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white text-sm transition-all disabled:opacity-50"
+      >
+        <RefreshCw size={14} className={checking ? 'animate-spin' : ''} />
+        {checking ? 'Checking TikTok...' : 'Auto-detect TikTok Live'}
+      </button>
     </motion.div>
   );
 }

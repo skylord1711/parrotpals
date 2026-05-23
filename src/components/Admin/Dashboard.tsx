@@ -54,6 +54,7 @@ export default function Dashboard({
 }: DashboardProps) {
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const tiktokUsername = socialPlatforms.find((p) => p.id === 'tiktok')?.username || '';
 
   const handleLogout = () => {
     logout();
@@ -93,7 +94,7 @@ export default function Dashboard({
         </motion.h1>
 
         <div className="space-y-4">
-          <LiveStatus isLive={isLive} onToggle={onToggleLive} />
+          <LiveStatus isLive={isLive} onToggle={onToggleLive} tiktokUsername={tiktokUsername} />
           <StreamSettings
             followerGoal={followerGoal}
             mainGame={mainGame}
