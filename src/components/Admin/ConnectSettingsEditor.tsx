@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
-import { Heart, Save } from 'lucide-react';
+import { Heart } from 'lucide-react';
 import type { ConnectSettings } from '../../types';
-import { useToast } from '../Toast';
 
 interface ConnectSettingsEditorProps {
   settings: ConnectSettings;
@@ -9,14 +8,8 @@ interface ConnectSettingsEditorProps {
 }
 
 export default function ConnectSettingsEditor({ settings, onUpdate }: ConnectSettingsEditorProps) {
-  const { showToast } = useToast();
-
   const handleChange = (field: keyof ConnectSettings, value: string) => {
     onUpdate({ ...settings, [field]: value });
-  };
-
-  const handleSave = () => {
-    showToast('Connect settings saved!');
   };
 
   return (
@@ -26,20 +19,11 @@ export default function ConnectSettingsEditor({ settings, onUpdate }: ConnectSet
       transition={{ delay: 0.15 }}
       className="glass rounded-2xl p-5 gradient-border"
     >
-      <div className="flex items-center justify-between mb-5">
-        <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-cyan-500/10">
-            <Heart size={18} className="text-cyan-400" />
-          </div>
-          <h3 className="font-semibold text-white">Connect Tab Content</h3>
+      <div className="flex items-center gap-3 mb-5">
+        <div className="p-2 rounded-lg bg-cyan-500/10">
+          <Heart size={18} className="text-cyan-400" />
         </div>
-        <button
-          onClick={handleSave}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-purple-500/20 text-purple-300 hover:bg-purple-500/30 text-xs font-medium transition-all"
-        >
-          <Save size={14} />
-          Save
-        </button>
+        <h3 className="font-semibold text-white">Connect Tab Content</h3>
       </div>
 
       <div className="space-y-4 max-h-[400px] overflow-y-auto pr-1">
