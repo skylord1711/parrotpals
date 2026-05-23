@@ -6,6 +6,7 @@ import TabNavigation from '../components/TabNavigation';
 import LinksTab from '../components/LinksTab';
 import ScheduleTab from '../components/ScheduleTab';
 import ConnectTab from '../components/ConnectTab';
+import ApplyTab from '../components/ApplyTab';
 import { scheduleData } from '../data/mockData';
 import type { TabId, ConnectSettings, SocialPlatform } from '../types';
 
@@ -18,6 +19,7 @@ interface HomePageProps {
   socialStats: Record<string, number>;
   socialPlatforms: SocialPlatform[];
   connectSettings: ConnectSettings;
+  bannedUsers: string[];
   onAnalyticsClick: (platformId: string) => void;
 }
 
@@ -30,6 +32,7 @@ export default function HomePage({
   socialStats,
   socialPlatforms,
   connectSettings,
+  bannedUsers,
   onAnalyticsClick,
 }: HomePageProps) {
   const [activeTab, setActiveTab] = useState<TabId>('links');
@@ -68,6 +71,7 @@ export default function HomePage({
         )}
         {activeTab === 'schedule' && <ScheduleTab key="schedule" schedule={scheduleData} />}
         {activeTab === 'connect' && <ConnectTab key="connect" settings={connectSettings} />}
+        {activeTab === 'apply' && <ApplyTab key="apply" bannedUsers={bannedUsers} />}
       </AnimatePresence>
     </motion.div>
   );

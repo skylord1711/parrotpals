@@ -23,6 +23,8 @@ interface AdminPageProps {
   onConnectSettingsUpdate: (settings: ConnectSettings) => void;
   socialPlatforms: SocialPlatform[];
   onSocialPlatformsUpdate: (platforms: SocialPlatform[]) => void;
+  bannedUsers: string[];
+  onBannedUsersUpdate: (banned: string[]) => void;
 }
 
 export default function AdminPage({
@@ -44,6 +46,8 @@ export default function AdminPage({
   onConnectSettingsUpdate,
   socialPlatforms,
   onSocialPlatformsUpdate,
+  bannedUsers,
+  onBannedUsersUpdate,
 }: AdminPageProps) {
   const { isAuthenticated } = useAuth();
 
@@ -71,6 +75,8 @@ export default function AdminPage({
             onConnectSettingsUpdate={onConnectSettingsUpdate}
             socialPlatforms={socialPlatforms}
             onSocialPlatformsUpdate={onSocialPlatformsUpdate}
+            bannedUsers={bannedUsers}
+            onBannedUsersUpdate={onBannedUsersUpdate}
           />
         ) : (
           <LoginPage />

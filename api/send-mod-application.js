@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 
   res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
 
-  const { name, age, discord, timezone, experience, reason, hours } = req.body;
+  const { name, age, discord, timezone, available, streams, abuse, experience, reason } = req.body;
 
   if (!name || !discord) {
     return res.status(400).json({ error: 'Name and Discord are required' });
@@ -20,9 +20,11 @@ export default async function handler(req, res) {
       <tr><td style="padding:8px;border:1px solid #333;font-weight:bold;">Age</td><td style="padding:8px;border:1px solid #333;">${age || 'N/A'}</td></tr>
       <tr><td style="padding:8px;border:1px solid #333;font-weight:bold;">Discord</td><td style="padding:8px;border:1px solid #333;">${discord}</td></tr>
       <tr><td style="padding:8px;border:1px solid #333;font-weight:bold;">Timezone</td><td style="padding:8px;border:1px solid #333;">${timezone || 'N/A'}</td></tr>
+      <tr><td style="padding:8px;border:1px solid #333;font-weight:bold;">Available Time</td><td style="padding:8px;border:1px solid #333;">${available || 'N/A'}</td></tr>
+      <tr><td style="padding:8px;border:1px solid #333;font-weight:bold;">Streams Watched</td><td style="padding:8px;border:1px solid #333;">${streams || 'N/A'}</td></tr>
+      <tr><td style="padding:8px;border:1px solid #333;font-weight:bold;">Abuse Handling</td><td style="padding:8px;border:1px solid #333;">${abuse || 'N/A'}</td></tr>
       <tr><td style="padding:8px;border:1px solid #333;font-weight:bold;">Experience</td><td style="padding:8px;border:1px solid #333;">${experience || 'N/A'}</td></tr>
       <tr><td style="padding:8px;border:1px solid #333;font-weight:bold;">Reason</td><td style="padding:8px;border:1px solid #333;">${reason || 'N/A'}</td></tr>
-      <tr><td style="padding:8px;border:1px solid #333;font-weight:bold;">Hours/Week</td><td style="padding:8px;border:1px solid #333;">${hours || 'N/A'}</td></tr>
     </table>
   `;
 

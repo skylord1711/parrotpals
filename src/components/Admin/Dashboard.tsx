@@ -9,6 +9,7 @@ import SocialStatsManager from './SocialStatsManager';
 import AnalyticsComponent from './Analytics';
 import ConnectSettingsEditor from './ConnectSettingsEditor';
 import SocialLinksEditor from './SocialLinksEditor';
+import BanListEditor from './BanListEditor';
 import type { LinkAnalytics, ConnectSettings, SocialPlatform } from '../../types';
 
 interface DashboardProps {
@@ -30,6 +31,8 @@ interface DashboardProps {
   onConnectSettingsUpdate: (settings: ConnectSettings) => void;
   socialPlatforms: SocialPlatform[];
   onSocialPlatformsUpdate: (platforms: SocialPlatform[]) => void;
+  bannedUsers: string[];
+  onBannedUsersUpdate: (banned: string[]) => void;
 }
 
 export default function Dashboard({
@@ -51,6 +54,8 @@ export default function Dashboard({
   onConnectSettingsUpdate,
   socialPlatforms,
   onSocialPlatformsUpdate,
+  bannedUsers,
+  onBannedUsersUpdate,
 }: DashboardProps) {
   const { logout } = useAuth();
   const navigate = useNavigate();
@@ -109,6 +114,7 @@ export default function Dashboard({
           <SocialStatsManager stats={socialStats} onUpdate={onSocialStatsUpdate} />
           <SocialLinksEditor platforms={socialPlatforms} onUpdate={onSocialPlatformsUpdate} />
           <ConnectSettingsEditor settings={connectSettings} onUpdate={onConnectSettingsUpdate} />
+          <BanListEditor bannedUsers={bannedUsers} onUpdate={onBannedUsersUpdate} />
           <AnalyticsComponent analytics={analytics} onReset={onAnalyticsReset} />
         </div>
       </div>

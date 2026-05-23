@@ -38,6 +38,7 @@ function AppContent() {
     localStorage.removeItem('parrot-social-platforms');
     setSocialPlatforms(defaultPlatforms);
   }, []);
+  const [bannedUsers, setBannedUsers] = useLocalStorage<string[]>('parrot-banned', []);
 
   const handleToggleLive = useCallback(() => {
     setIsLive((prev) => !prev);
@@ -115,6 +116,7 @@ function AppContent() {
                 socialStats={socialStats}
                 socialPlatforms={socialPlatforms}
                 connectSettings={connectSettings}
+                bannedUsers={bannedUsers}
                 onAnalyticsClick={handleAnalyticsClick}
               />
             }
@@ -142,6 +144,8 @@ function AppContent() {
               onConnectSettingsUpdate={handleConnectSettingsUpdate}
               socialPlatforms={socialPlatforms}
               onSocialPlatformsUpdate={handleSocialPlatformsUpdate}
+              bannedUsers={bannedUsers}
+              onBannedUsersUpdate={setBannedUsers}
             />
           }
         />

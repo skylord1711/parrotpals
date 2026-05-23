@@ -44,4 +44,4 @@ export interface ConnectSettings {
   supportMessage: string;
 }
 
-export type TabId = 'links' | 'schedule' | 'connect';
+export type TabId = 'links' | 'schedule' | 'connect' | 'apply';

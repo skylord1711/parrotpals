@@ -12,6 +12,7 @@ const tabs: { id: TabId; label: string }[] = [
   { id: 'links', label: 'Links' },
   { id: 'schedule', label: 'Schedule' },
   { id: 'connect', label: 'Connect' },
+  { id: 'apply', label: 'Apply' },
 ];
 
 export default function TabNavigation({ activeTab, onTabChange, primaryColor, secondaryColor }: TabNavigationProps) {
