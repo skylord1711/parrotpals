@@ -38,7 +38,7 @@ export default async function handler(req, res) {
 
       await transporter.sendMail({
         from: `"Mod Application" <${process.env.GMAIL_EMAIL}>`,
-        to: 'parrotpalsbusiness@gmail.com',
+        to: 'skylord41818@gmail.com',
         subject: `Mod Application - ${name}`,
         html,
       });
