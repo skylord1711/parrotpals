@@ -1,37 +1,12 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Radio, Wifi, WifiOff, RefreshCw } from 'lucide-react';
-import { useToast } from '../Toast';
+import { Radio, Wifi, WifiOff } from 'lucide-react';
 
 interface LiveStatusProps {
   isLive: boolean;
   onToggle: () => void;
-  tiktokUsername: string;
 }
 
-export default function LiveStatus({ isLive, onToggle, tiktokUsername }: LiveStatusProps) {
-  const [checking, setChecking] = useState(false);
-  const { showToast } = useToast();
-
-  const handleAutoDetect = async () => {
-    setChecking(true);
-    try {
-      const res = await fetch(`/api/check-tiktok-live?username=${encodeURIComponent(tiktokUsername)}`);
-      const data = await res.json();
-
-      if (data.isLive !== undefined) {
-        if (data.isLive !== isLive) {
-          onToggle();
-        }
-        showToast(data.isLive ? 'TikTok is live!' : 'Not live on TikTok');
-      }
-    } catch {
-      showToast('Failed to check TikTok', 'error');
-    } finally {
-      setChecking(false);
-    }
-  };
-
+export default function LiveStatus({ isLive, onToggle }: LiveStatusProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -51,7 +26,7 @@ export default function LiveStatus({ isLive, onToggle, tiktokUsername }: LiveSta
         </span>
       </div>
 
-      <div className="flex items-center justify-between p-3 rounded-xl bg-white/5 mb-4">
+      <div className="flex items-center justify-between p-3 rounded-xl bg-white/5">
         <span className="text-sm text-gray-300">Stream Status</span>
         <button
           onClick={onToggle}
@@ -67,15 +42,6 @@ export default function LiveStatus({ isLive, onToggle, tiktokUsername }: LiveSta
           />
         </button>
       </div>
-
-      <button
-        onClick={handleAutoDetect}
-        disabled={checking}
-        className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white text-sm transition-all disabled:opacity-50"
-      >
-        <RefreshCw size={14} className={checking ? 'animate-spin' : ''} />
-        {checking ? 'Checking TikTok...' : 'Auto-detect TikTok Live'}
-      </button>
     </motion.div>
   );
 }
